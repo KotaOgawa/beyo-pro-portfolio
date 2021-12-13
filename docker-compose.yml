@@ -1,0 +1,14 @@
+version: '3'
+services:
+  db:
+    # `build .`は、同階層のDockerfileを読み込むように指定している
+    # postgresのイメージを直接指定する場合は`image: postgres:14-alpine`とする
+    build: .
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: app-db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - .psql-db:/var/lib/postgresql/data
