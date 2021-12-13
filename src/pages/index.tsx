@@ -6,7 +6,7 @@ import { apiClient } from '~/utils/apiClient'
 import UserBanner from '~/components/UserBanner'
 import type { Task } from '$prisma/client'
 import type { FormEvent, ChangeEvent } from 'react'
-import { Button } from '@chakra-ui/react'
+import { Button, Text } from '@chakra-ui/react'
 
 const Home = () => {
   const { data: tasks, error, revalidate } = useAspidaSWR(apiClient.tasks)
@@ -57,6 +57,7 @@ const Home = () => {
 
         <p className={styles.description}>frourio-todo-app</p>
         <Button>Chakra Button</Button>
+        <Text fontSize='3xl'>Chakra Text</Text>
 
         <div>
           <form style={{ textAlign: 'center' }} onSubmit={createTask}>

@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import Fastify, { FastifyInstance } from 'fastify'
 import cors from 'fastify-cors'
 import aspida from '@aspida/axios'
-import api from '~/server/api/$api'
+import api from '$/api/$api'
 import Home from '~/pages/index'
 import { render, fireEvent } from '../testUtils'
 
