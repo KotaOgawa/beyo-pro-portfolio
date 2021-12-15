@@ -12,3 +12,9 @@ model Task {
   label String
   done  Boolean @default(false)
 }
+
+model Board {
+  id          Int     @id @default(autoincrement())
+  title       String
+  delete_flag Boolean @default(false)
+}
