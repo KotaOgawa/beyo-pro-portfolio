@@ -1,3 +1,4 @@
+// PostgreSQL から MySQL に変更するときは、ここの `datasource` と `client` の部分を変更すれば簡単に移行できる！
 datasource db {
   provider = "postgresql"
   url      = env("API_DATABASE_URL")
@@ -7,14 +8,44 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// yarn dev OR yarn migrate:dev マイグレーションの実行
 model Task {
-  id    Int     @id @default(autoincrement())
-  label String
-  done  Boolean @default(false)
+  id        Int      @id @default(autoincrement())
+  label     String
+  done      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Board {
-  id          Int     @id @default(autoincrement())
-  title       String
-  delete_flag Boolean @default(false)
+model User {
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  age        Int?
+  threads    Thread[]
+  comments   Comment[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+}
+
+// 掲示板のスレッド（スレ）
+model Thread {
+  id         Int       @id @default(autoincrement())
+  title      String
+  comments   Comment[]
+  user       User      @relation(fields: [user_id], references: [id])
+  user_id    Int
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+}
+
+// 掲示板のレス（コメント）
+model Comment {
+  id         Int      @id @default(autoincrement())
+  body       String
+  thread     Thread   @relation(fields: [thread_id], references: [id])
+  thread_id  Int
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
