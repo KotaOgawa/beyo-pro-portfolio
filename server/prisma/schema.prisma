@@ -29,7 +29,8 @@ model User {
 // 掲示板のスレッド（スレ）
 model Thread {
   id         Int       @id @default(autoincrement())
-  title      String
+  title      String    @db.VarChar(255)
+  body       String    @db.Text
   comments   Comment[]
   user       User      @relation(fields: [user_id], references: [id])
   user_id    Int
@@ -40,7 +41,7 @@ model Thread {
 // 掲示板のレス（コメント）
 model Comment {
   id         Int      @id @default(autoincrement())
-  body       String
+  body       String   @db.VarChar(700)
   thread     Thread   @relation(fields: [thread_id], references: [id])
   thread_id  Int
   user       User?    @relation(fields: [user_id], references: [id])
