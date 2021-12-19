@@ -1,6 +1,7 @@
 import useAspidaSWR from '@aspida/swr'
 import { apiClient } from '~/utils/apiClient'
 import { Box, Flex } from '@chakra-ui/react'
+import { Layout } from '~/components/Layout'
 
 /**
  * NOTE: 流れメモ（1, 2が基点）
@@ -15,17 +16,19 @@ const Sandbox = () => {
   console.log('🍫 Threadデータ', threads)
 
   return (
-    <Box>
-      <Flex justify="center" align="center" margin={50}>
-        <div>aiko 結婚 おめでとう! 🎉</div>
-      </Flex>
+    <Layout>
+      <Box>
+        <Flex justify="center" align="center" margin={50}>
+          <div>aiko 結婚 おめでとう! 🎉</div>
+        </Flex>
 
-      <ul>
-        {threads?.map((thread) => (
-          <li key={thread.id}>{thread.title}</li>
-        ))}
-      </ul>
-    </Box>
+        <ul>
+          {threads?.map((thread) => (
+            <li key={thread.id}>{thread.title}</li>
+          ))}
+        </ul>
+      </Box>
+    </Layout>
   )
 }
 
