@@ -36,6 +36,7 @@ model Thread {
   user_id    Int
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
+  deleted_at DateTime?
 }
 
 // 掲示板のレス（コメント）
