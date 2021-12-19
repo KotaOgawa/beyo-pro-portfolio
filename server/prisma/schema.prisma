@@ -10,15 +10,16 @@ generator client {
 
 // yarn dev OR yarn migrate:dev マイグレーションの実行
 model Task {
-  id        Int      @id @default(autoincrement())
-  label     String
-  done      Boolean  @default(false)
+  id    Int     @id @default(autoincrement())
+  label String
+  done  Boolean @default(false)
 }
 
 model User {
   id         Int       @id @default(autoincrement())
   name       String    @unique
   age        Int?
+  role       Role      @default(USER)
   threads    Thread[]
   comments   Comment[]
   created_at DateTime  @default(now())
@@ -42,8 +43,13 @@ model Comment {
   body       String
   thread     Thread   @relation(fields: [thread_id], references: [id])
   thread_id  Int
-  user       User     @relation(fields: [user_id], references: [id])
-  user_id    Int
+  user       User?    @relation(fields: [user_id], references: [id])
+  user_id    Int?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  USER
 }
