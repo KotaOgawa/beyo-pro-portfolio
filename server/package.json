@@ -17,6 +17,9 @@
     "migrate:reset": "prisma migrate reset",
     "start": "cross-env NODE_ENV=production node index.js"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^3.6.0",
     "class-validator": "^0.13.1",
