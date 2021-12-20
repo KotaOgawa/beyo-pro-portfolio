@@ -7,3 +7,8 @@ export const fetchThreads = depend(
   { prisma: prisma as { thread: { findMany(): Promise<Thread[]> } } },
   async ({ prisma }) => await prisma.thread.findMany()
 )
+
+export const fetchThread = async (id: Thread['id']) =>
+  await prisma.thread.findUnique({
+    where: { id }
+  })
