@@ -12,8 +12,7 @@ import { Layout } from '~/components/Layout'
  * 5. フロント側の呼び出したいファイルでuseAspidaSWRを用いて呼び出す
  */
 const Sandbox = () => {
-  const { data: threads, error, revalidate } = useAspidaSWR(apiClient.threads)
-  console.log('🍫 Threadデータ', threads)
+  const { data: threads } = useAspidaSWR(apiClient.threads)
 
   return (
     <Layout>

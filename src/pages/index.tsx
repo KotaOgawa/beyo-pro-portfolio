@@ -1,15 +1,16 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { useCallback, useState } from 'react'
 import useAspidaSWR from '@aspida/swr'
 import styles from '~/styles/Home.module.css'
 import { apiClient } from '~/utils/apiClient'
-import UserBanner from '~/components/UserBanner'
 import type { Task } from '$prisma/client'
 import type { FormEvent, ChangeEvent } from 'react'
-import { Button, Text } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 
 const Home = () => {
-  const { data: tasks, error, revalidate } = useAspidaSWR(apiClient.tasks)
+  const { data: threads, error, revalidate } = useAspidaSWR(apiClient.threads)
+  const { data: tasks } = useAspidaSWR(apiClient.tasks)
   const [label, setLabel] = useState('')
   const inputLabel = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setLabel(e.target.value),
@@ -44,22 +45,28 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>frourio-todo-app</title>
+        <title>FROURIO NYUMON</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
 
       <main className={styles.main}>
-        <UserBanner />
+        <Text fontSize="3xl">掲示板です</Text>
+        <Text fontSize="">僕の限界</Text>
 
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <ul>
+          {threads?.map((thread) => {
+            return (
+              <li key={thread.id}>
+                <Link href={`/threads/${thread.id}`}>
+                  <a>{thread.title}</a>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
 
-        <p className={styles.description}>frourio-todo-app</p>
-        <Button>Chakra Button</Button>
-        <Text fontSize='3xl'>Chakra Text</Text>
-
-        <div>
+        <br />
+        <div style={{ background: 'pink' }}>
           <form style={{ textAlign: 'center' }} onSubmit={createTask}>
             <input value={label} type="text" onChange={inputLabel} />
             <input type="submit" value="ADD" />
@@ -86,17 +93,6 @@ const Home = () => {
           </ul>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   )
 }
