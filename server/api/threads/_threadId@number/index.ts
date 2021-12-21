@@ -1,7 +1,7 @@
-import { Thread } from '@prisma/client'
+import type { Comment, Thread } from '@prisma/client'
 
 export type Methods = {
   get: {
-    resBody: Thread | null
+    resBody: (Thread & { comments: Comment[] }) | null
   }
 }
