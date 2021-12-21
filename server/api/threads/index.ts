@@ -5,4 +5,8 @@ export type Methods = {
   get: {
     resBody: Thread[]
   }
+  post: {
+    reqBody: Pick<Thread, 'title' | 'body'>
+    resBody: Thread
+  }
 }

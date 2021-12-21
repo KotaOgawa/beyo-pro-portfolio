@@ -1,5 +1,5 @@
+import type { Thread, Prisma } from '$prisma/client'
 import { prisma } from '$/lib/prismaClient'
-import type { Thread } from '$prisma/client'
 
 // DBとの接続、DBアクセスメソッドの定義
 export const fetchThreads = async () =>
@@ -12,3 +12,15 @@ export const fetchThread = async (id: Thread['id']) =>
       comments: true
     }
   })
+
+export const createThread = async (
+  data: Prisma.ThreadCreateWithoutUserInput
+) => {
+  return await prisma.thread.create({
+    data: {
+      title: data.title,
+      body: data.body,
+      user: { connect: { id: 1 } }
+    }
+  })
+}
